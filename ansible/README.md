@@ -4,6 +4,12 @@ This is an ansible setup that will allow you to deploy as many zen nodes as you 
 
 ## Getting started
 
+First things first you will need ssh access to all the servers you wish to deploy a zen node to. This is how ansible communicates with the server.
+
+If you are unsure how to set up ssh, a quick google will show 1000s of explainations of the process.
+
+### Installation
+
 Install ansible on your system. The below `apt-get` assumes you are on an Ubuntu machine but you can do a quick google to find out how to install ansible on your OS.
 
 ```

@@ -14,3 +14,15 @@
     setup:
   roles:
     - zen-node
+
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: copy results to local file
+      template: src=output.j2 dest="/tmp/zen-node-results"
+
+    - name: output results
+      command: cat /tmp/zen-node-results
+      register: cat
+    - debug: var=cat.stdout_lines

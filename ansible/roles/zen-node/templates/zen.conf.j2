@@ -1,0 +1,18 @@
+rpcport=18231
+rpcallowip=127.0.0.0/24
+server=1
+# Docker doesn't run as daemon
+daemon=0
+listen=1
+txindex=1
+logtimestamps=1
+testnet=0
+rpcuser=user
+rpcpassword={{ rpcpassword.stdout }}
+tlscertpath=/mnt/zen/certs/{{ fqdn }}/{{ fqdn }}.cer
+tlskeypath=/mnt/zen/certs/{{ fqdn }}/{{ fqdn }}.key
+
+# Add our nodes
+{% for host in groups['zen-nodes'] %}
+addnode={{ host }}
+{%endfor%}

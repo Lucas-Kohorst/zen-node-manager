@@ -1,0 +1,9 @@
+[all:vars]
+email=youremail@email.com
+region=eu
+
+[zen-nodes]
+yournode.yourdomain.com fqdn=yournode.yourdomain.com stakeaddr=stakeaddress nodetype=secure
+
+[bootstrap-nodes]
+yournode.yourdomain.com

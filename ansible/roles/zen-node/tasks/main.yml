@@ -1,8 +1,8 @@
 ---
 
 
-- name: Creating a 4GB swap file
-  command: fallocate -l 4G /swapfile
+- name: Creating a 8GB swap file
+  command: fallocate -l 8G /swapfile
   register: write_swapfile
   when: ansible_memory_mb.real.total + ansible_memory_mb.swap.total < 4096
   ignore_errors: yes

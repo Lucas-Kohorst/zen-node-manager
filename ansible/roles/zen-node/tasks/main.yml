@@ -120,7 +120,7 @@
     if [ -f /mnt/zen/secnode/rpcpassword ]; then
       cat /mnt/zen/secnode/rpcpassword
     else
-      head -c 32 /dev/urandom | base64
+      head -c 32 /dev/urandom | base64 | tee /mnt/zen/secnode/rpcpassword
     fi
   register: rpcpassword
 

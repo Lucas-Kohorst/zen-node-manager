@@ -11,6 +11,8 @@ rpcuser=user
 rpcpassword={{ rpcpassword.stdout }}
 tlscertpath=/mnt/zen/certs/{{ fqdn }}/{{ fqdn }}.cer
 tlskeypath=/mnt/zen/certs/{{ fqdn }}/{{ fqdn }}.key
+port=9033
+externalip={{ ip }}
 
 # Add our nodes
 {% for host in groups['zen-nodes'] %}

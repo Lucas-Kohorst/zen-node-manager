@@ -26,4 +26,6 @@ RUN cd /home/node/ \
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
+VOLUME ["/mnt/zen"]
+
 ENTRYPOINT ["/tini", "--", "/usr/local/bin/entrypoint.sh"]

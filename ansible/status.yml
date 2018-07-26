@@ -15,6 +15,11 @@
         docker exec zen-node /usr/local/bin/gosu user zen-cli z_listaddresses | tr -d []\"' '
       register: zenshield
 
+    - name: Get transparent address
+      shell: |
+        docker exec zen-node /usr/local/bin/gosu user zen-cli listaddresses | tr -d []\"' '
+      register: zentaddr
+
     - name: Get shield address balance
       shell: |
         docker exec zen-node /usr/local/bin/gosu user zen-cli z_gettotalbalance | tr -d {}\",
@@ -23,6 +28,7 @@
     - set_fact:
         zenblock: "{{ zenblock.stdout }}"
         zenshield: "{{ zenshield.stdout }}"
+        zentaddr: "{{ zentaddr.stdout }}"
         zenbalance: "{{ zenbalance.stdout }}"
 
 - hosts: localhost

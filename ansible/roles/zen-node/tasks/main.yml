@@ -207,6 +207,13 @@
       systemctl restart zen-secnodetracker
     fi
 
+- name: Generate transparent address
+  shell: |
+    if [ $(docker exec zen-node /usr/local/bin/gosu user zen-cli listaddresses | wc -l) -eq 3 ]; then
+      docker exec zen-node /usr/local/bin/gosu user zen-cli getnewaddress
+      systemctl restart zen-secnodetracker
+    fi
+
 - name: Get current block
   shell: |
     docker exec zen-node /usr/local/bin/gosu user zen-cli getinfo | grep \"blocks\" | tr -d \",
@@ -217,6 +224,11 @@
     docker exec zen-node /usr/local/bin/gosu user zen-cli z_listaddresses | tr -d []\"' '
   register: zenshield
 
+- name: Get transparent address
+  shell: |
+    docker exec zen-node /usr/local/bin/gosu user zen-cli listaddresses | tr -d []\"' '
+  register: zentaddr
+
 - name: Get shield address balance
   shell: |
     docker exec zen-node /usr/local/bin/gosu user zen-cli z_gettotalbalance | tr -d {}\",
@@ -225,4 +237,5 @@
 - set_fact:
     zenblock: "{{ zenblock.stdout }}"
     zenshield: "{{ zenshield.stdout }}"
+    zentaddr: "{{ zentaddr.stdout }}"
     zenbalance: "{{ zenbalance.stdout }}"

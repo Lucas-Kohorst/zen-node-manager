@@ -1,0 +1,20 @@
+---
+# rsync -rva --rsync-path="mkdir -p /mnt/zen/config && rsync" /mnt/zen/config/{blocks,chainstate} -e ssh root@zennode4.theproofofsteak.com:/mnt/zen/config
+#
+# gosu user zen-cli z_sendmany "$(gosu user zen-cli listaddresses | jq -r '.[1]')" "[{\"amount\": 0.0249, \"address\": \"$(gosu user zen-cli z_getnewaddress)\"}, {\"amount\": 0.0249, \"address\": \"$(gosu user zen-cli z_getnewaddress)\"}]"
+#
+# Bootstrap new zen secure nodes
+#
+
+- name: Split funds that have been sent to the nodes t address
+  hosts: fundsplit
+  gather_facts: false
+  remote_user: root
+
+  tasks:
+    - name: install python 2
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
+    - name: Split the funds
+      shell: |
+        docker exec zen-node sh -c 'gosu user zen-cli z_sendmany "$(gosu user zen-cli listaddresses | jq -r .[1])" "[{\"amount\": 0.0249, \"address\": \"$(gosu user zen-cli z_getnewaddress)\"}, {\"amount\": 0.0249, \"address\": \"$(gosu user zen-cli z_getnewaddress)\"}]"'
